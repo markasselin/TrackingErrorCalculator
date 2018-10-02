@@ -83,17 +83,14 @@ class TrackingErrorCalculatorWidget(ScriptedLoadableModuleWidget):
     # field of view and positions text boxes
     self.fileDirLabel = "Output Dir:"
     self.fileDirTextBox = qt.QLineEdit()
-    self.trackerLabel = "Tracker:"
-    self.trackerTextBox = qt.QLineEdit()
-    self.fovLabel = "FOV Region:"
-    self.fovTextBox = qt.QLineEdit()
-    self.posLabel = "Position (#):"
-    self.posTextBox = qt.QLineEdit()
+    self.baseFilenameLabel = "Filename:"
+    self.baseFilenameTextBox = qt.QLineEdit()
+    self.metadataLabel = "Metadata:"
+    self.metadataTextBox = qt.QLineEdit()
 
     writeDataFormLayout.addRow(self.fileDirLabel, self.fileDirTextBox)
-    writeDataFormLayout.addRow(self.trackerLabel, self.trackerTextBox)
-    writeDataFormLayout.addRow(self.fovLabel, self.fovTextBox)
-    writeDataFormLayout.addRow(self.posLabel, self.posTextBox)
+    writeDataFormLayout.addRow(self.baseFilenameLabel, self.baseFilenameTextBox)
+    writeDataFormLayout.addRow(self.metadataLabel, self.metadataTextBox)
 
     # start button
     self.startButton = qt.QPushButton("Start Sample Collection")
@@ -141,10 +138,9 @@ class TrackingErrorCalculatorWidget(ScriptedLoadableModuleWidget):
     transformOfInterest = self.transformOfInterestSelector.currentNode()
     numPoints = self.numPointsSliderWidget.value
     dirPath = str(self.fileDirTextBox.text)
-    tracker = str(self.trackerTextBox.text)
-    fov = str(self.fovTextBox.text)
-    position = str(self.posTextBox.text)
-    filestring = dirPath + tracker + "_" + fov + position + ".csv"
+    baseFilename = str(self.baseFilenameTextBox.text)
+    metadata = str(self.metadataTextBox.text)
+    filestring = dirPath + baseFilename + "_" + metadata + ".csv"
     self.logic.run(transformOfInterest, numPoints, filestring, self.updateResultsGUI)
 
   def onStop(self):
@@ -153,12 +149,11 @@ class TrackingErrorCalculatorWidget(ScriptedLoadableModuleWidget):
   def onStartEndless(self):
     self.logic = TrackingErrorCalculatorLogic()
     transformOfInterest = self.transformOfInterestSelector.currentNode()
-    numPoints = 20000
+    numPoints = 200000
     dirPath = str(self.fileDirTextBox.text)
-    tracker = str(self.trackerTextBox.text)
-    fov = str(self.fovTextBox.text)
-    position = str(self.posTextBox.text)
-    filestring = dirPath + tracker + "_" + fov + position + ".csv"
+    baseFilename = str(self.baseFilenameTextBox.text)
+    metadata = str(self.metadataTextBox.text)
+    filestring = dirPath + baseFilename + "_" + metadata + ".csv"
     self.logic.run(transformOfInterest, numPoints, filestring, self.updateResultsGUI)
 
   
